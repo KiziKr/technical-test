@@ -141,7 +141,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function getUsername()
     {
-        return '';
+        return $this->email;
     }
 
     public function getSalt()
