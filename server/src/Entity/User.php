@@ -38,6 +38,11 @@ class User
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserSheet::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userSheet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,5 +107,22 @@ class User
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new \DateTime('now'));
         }
+    }
+
+    public function getUserSheet(): ?UserSheet
+    {
+        return $this->userSheet;
+    }
+
+    public function setUserSheet(UserSheet $userSheet): self
+    {
+        $this->userSheet = $userSheet;
+
+        // set the owning side of the relation if necessary
+        if ($userSheet->getUser() !== $this) {
+            $userSheet->setUser($this);
+        }
+
+        return $this;
     }
 }
