@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="user_find", methods={"GET"})
+     * @Route("/api/user", name="api_user_find", methods={"GET"})
      */
     public function find(UserRepository $userRepository)
     {
@@ -22,7 +22,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user", name="user_post", methods={"POST"})
+     * @Route("/api/user", name="api_user_create", methods={"POST"})
      */
     public function create(Request $request, SerializerInterface $serializer, UserPasswordEncoderInterface $encoder, ValidatorInterface $validator)
     {
