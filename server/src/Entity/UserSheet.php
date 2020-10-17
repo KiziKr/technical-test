@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserSheetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserSheetRepository::class)
+ * @UniqueEntity("phone")
  * @ORM\HasLifecycleCallbacks
  */
 class UserSheet
@@ -20,21 +23,28 @@ class UserSheet
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * Assert\NotBlank
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotNull
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="phone", type="string", length=255, unique=true)
+     * @Assert\NotNull
+     * @Assert\Length(10)
      */
     private $phone;
 

@@ -6,9 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email")
  * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface, EncoderAwareInterface
@@ -17,16 +21,22 @@ class User implements UserInterface, EncoderAwareInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("user:read")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Groups("user:read")
+     * @Assert\NotNull
+     * @Assert\Email
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -42,6 +52,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     /**
      * @ORM\OneToOne(targetEntity=UserSheet::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Assert\NotNull
      */
     private $userSheet;
 
@@ -130,7 +141,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function getUsername()
     {
-        return $this->username;
+        return '';
     }
 
     public function getSalt()
