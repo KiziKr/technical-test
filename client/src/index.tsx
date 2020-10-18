@@ -31,6 +31,12 @@ const theme = createMuiTheme({
     },
   },
   overrides: {
+    MuiAppBar: {
+      colorPrimary: {
+        borderBottom: 'solid 1px #ffffff0d',
+        backgroundColor: '#01172430',
+      },
+    },
     MuiPaper: {
       root: {
         backgroundColor: 'rgba(0, 0, 0, 0.05)',

@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
-
+        flexDirection: 'column',
     },
     content: {
         width: 1000,

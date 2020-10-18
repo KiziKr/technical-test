@@ -5,6 +5,7 @@ import { UserListPage } from '../pages/UserListPage';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import { AuthLayout } from '../layouts/AuthLayout';
 import { UserCreatePage } from '../pages/UserCreatePage';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 const Routes = () => (
     <Router>
@@ -25,6 +26,11 @@ const Routes = () => (
                 path='/user/signup'
                 component={UserCreatePage}
                 layout={AuthLayout}
+            />
+
+            <RouteWrapper
+                component={NotFoundPage}
+                layout={DefaultLayout}
             />
         </Switch>
     </Router>

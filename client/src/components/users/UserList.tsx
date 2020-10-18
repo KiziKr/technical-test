@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, makeStyles, Paper } from '@material-ui/core';
-import { User } from '../../types/user';
+import { User, UserSheet } from '../../types/user';
 import axios from '../../api';
 import UserModal from './UserModal';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const UserList = () => {
     const [users, setUsers] = useState<User[]>();
-    const [userIndex, setUserIndex] = useState(0);
+    const [userSelected, setUserSelected] = useState<User>();
     const [openModal, setOpenModal] = useState(false);
     const classes = useStyles();
 
@@ -40,12 +40,25 @@ const UserList = () => {
         })();
     }, []);
 
+    const handleUserSheet = async (index: number): Promise<void> => {
+        if (users && users[index]) {
+            const { data } = await axios.get(`/user/${users[index].id}`);
+
+            if (data) {
+                const newUsers = users;
+                newUsers[index].userSheet = data;
+                setUserSelected(newUsers[index]);
+                setUsers(newUsers);
+            }
+        }
+    }
+
     const toLocaleDateString = (date: string) => {
         return new Date(date).toLocaleDateString('fr', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
-        });    
+        });
     }
 
     const handleClose = () => {
@@ -67,8 +80,8 @@ const UserList = () => {
                             className={classes.tableRow}
                             key={`user-list-${key}`}
                             onClick={() => {
-                                setUserIndex(key);
                                 setOpenModal(!openModal);
+                                handleUserSheet(key);
                             }}
                         >
                             <TableCell
@@ -80,13 +93,11 @@ const UserList = () => {
                             <TableCell align='right'>{toLocaleDateString(user.createdAt)}</TableCell>
                         </TableRow>
                     ))}
-                    {users &&
+                    {userSelected && openModal &&
                         <UserModal
+                            user={userSelected}
                             open={openModal}
                             onClose={handleClose}
-                            userId={users[userIndex].id}
-                            userEmail={users[userIndex].email}
-                            userCreatedAt={users[userIndex].createdAt}
                         />
                     }
                 </TableBody>

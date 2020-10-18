@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface UserSheet {
+    id: string;
     firstName: string;
     lastName: string;
     description: string;
