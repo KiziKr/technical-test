@@ -7,10 +7,14 @@ import './index.css';
 
 const theme = createMuiTheme({
   palette: {
+    action: {
+      disabledBackground: '#ffffff8c',
+      disabled: 'rgba(0, 0, 0, 0.31)',
+    },
     primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
+      light: '#00aeff',
+      main: '#0e86ca',
+      dark: '#00aeff',
       contrastText: '#fff',
     },
     secondary: {
@@ -26,6 +30,18 @@ const theme = createMuiTheme({
       marginBottom: 15,
     },
   },
+  overrides: {
+    MuiPaper: {
+      root: {
+        backgroundColor: '#ffffff1f',
+      }
+    },
+    MuiButton: {
+      root: {
+        borderRadius: 0,
+      }
+    }
+  }
 });
 
 ReactDOM.render(

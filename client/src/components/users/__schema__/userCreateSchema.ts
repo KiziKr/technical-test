@@ -9,18 +9,22 @@ export const initialValues = {
     phone: '',
 }
 
-const invalid = 'Ce champs est invalide';
-const required = 'Ce champs est requis';
+export const message = {
+    invalid: 'Ce champs est invalide',
+    required: 'Ce champs est requis',
+}
 
 const isRequired = () => {
-    return string().required(required);
+    return string().required(message.required);
 }
 
 export const userCreateSchema = object().shape({
-    email: isRequired().email(invalid),
+    email: isRequired().email(message.invalid),
     password: isRequired(),
     firstName: isRequired(),
     lastName: isRequired(),
     description: isRequired(),
-    phone: mixed().required()
+    phone: isRequired()
+        .min(10, 'Doit contenir exactement 10 chiffres')
+        .max(10, 'Doit contenir exactement 10 chiffres')
 });

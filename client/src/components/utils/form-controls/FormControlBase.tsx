@@ -1,7 +1,8 @@
 import React from 'react';
-import { InputBase, InputBaseProps } from '@material-ui/core';
+import { InputBase, InputBaseProps, makeStyles } from '@material-ui/core';
 import { BasicInputProps } from './FormFeedback';
 import { FormFeedback } from './FormFeedback';
+import clsx from 'clsx';
 
 interface FormControlBaseProps {
     formikProps: BasicInputProps<any>
@@ -10,6 +11,16 @@ interface FormControlBaseProps {
     escapeValue?: boolean;
 }
 
+const useStyles = makeStyles({
+    input: {
+        border: '1px solid rgba(255,255,255,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        color: '#fff',
+        padding: '0 10px',
+        height: 40,
+    }
+});
+
 const FormControlBase = ({
     formikProps,
     inputProps,
@@ -17,6 +28,7 @@ const FormControlBase = ({
 }: FormControlBaseProps
 ) => {
     const name = (inputProps && inputProps.name) || '';
+    const classes = useStyles();
 
     return (
         <FormFeedback
@@ -25,9 +37,9 @@ const FormControlBase = ({
             info={info}
         >
             <InputBase
-                {...inputProps}
+                className={clsx(classes.input, inputProps?.className)}
                 fullWidth={true}
-                className={inputProps && inputProps.className}
+                {...inputProps}
             />
         </FormFeedback>
     )

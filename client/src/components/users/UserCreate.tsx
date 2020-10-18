@@ -2,10 +2,22 @@ import React from 'react';
 import { FormikProps, Formik, Form } from 'formik';
 import { initialValues, userCreateSchema } from './__schema__/userCreateSchema'
 import FormControlBase from '../utils/form-controls/FormControlBase';
-import { Button } from '@material-ui/core';
+import { Button, Paper, makeStyles } from '@material-ui/core';
 import axios from '../../api';
 
-const UserCreate = (props: { onSuccess: Function }) => {
+const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: 350,
+        minWidth: 360,
+    }
+});
+
+const UserCreate = () => {
+    const classes = useStyles();
+
     return (
         <Formik
             initialValues={initialValues}
@@ -28,23 +40,21 @@ const UserCreate = (props: { onSuccess: Function }) => {
                         phone,
                     },
                 }).then(data => {
-                    if (props.onSuccess) {
-                        props.onSuccess(data);
-                    }
+                    alert('Utilisateur enregistré');
                 }).catch(err => {
-                    console.log(err)
                     const { detail, title } = err?.response?.data;
                     alert(`${title}:\n${detail}`);
                 });
             }}
         >
             {(props: FormikProps<any>) => (
-                <Form>
+                <Form className={classes.root}>
                     <FormControlBase
                         formikProps={{ ...props }}
                         inputProps={{
                             type: 'email',
                             name: 'email',
+                            placeholder: 'Email'
                         }}
                     />
                     <FormControlBase
@@ -52,33 +62,45 @@ const UserCreate = (props: { onSuccess: Function }) => {
                         inputProps={{
                             type: 'password',
                             name: 'password',
+                            placeholder: 'Mot de passe',
                         }}
                     />
                     <FormControlBase
                         formikProps={{ ...props }}
                         inputProps={{
                             name: 'firstName',
+                            placeholder: 'Prénom',
                         }}
                     />
                     <FormControlBase
                         formikProps={{ ...props }}
                         inputProps={{
                             name: 'lastName',
+                            placeholder: 'Nom',
                         }}
                     />
                     <FormControlBase
                         formikProps={{ ...props }}
                         inputProps={{
                             name: 'description',
+                            placeholder: 'Déscription',
                         }}
                     />
                     <FormControlBase
                         formikProps={{ ...props }}
                         inputProps={{
                             name: 'phone',
+                            placeholder: 'Téléphone',
                         }}
                     />
-                    <Button type='submit' disabled={Object.values(props.errors).length > 0}>Submit</Button>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        type='submit'
+                        disabled={Object.values(props.errors).length > 0}
+                    >
+                        S'inscrire
+                    </Button>
                 </Form>
             )}
         </Formik>

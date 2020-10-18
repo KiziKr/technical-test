@@ -1,14 +1,19 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import RouteWrapper from './RouteWrapper';
 import { UserListPage } from '../pages/UserListPage';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import { AuthLayout } from '../layouts/AuthLayout';
-import UserCreate from '../components/users/UserCreate';
+import { UserCreatePage } from '../pages/UserCreatePage';
 
 const Routes = () => (
     <Router>
         <Switch>
+            <Redirect
+                exact
+                from='/'
+                to={`/user`}
+            />
             <RouteWrapper
                 exact
                 path='/user'
@@ -18,7 +23,7 @@ const Routes = () => (
             <RouteWrapper
                 exact
                 path='/user/signup'
-                component={UserCreate}
+                component={UserCreatePage}
                 layout={AuthLayout}
             />
         </Switch>
