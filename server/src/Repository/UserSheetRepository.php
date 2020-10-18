@@ -19,32 +19,17 @@ class UserSheetRepository extends ServiceEntityRepository
         parent::__construct($registry, UserSheet::class);
     }
 
-    // /**
-    //  * @return UserSheet[] Returns an array of UserSheet objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneByIdJoinedToUserSheet($id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $entityManager = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?UserSheet
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $entityManager->createQuery(
+            'SELECT p, c
+            FROM App\Entity\UserSheet p
+            INNER JOIN p.user c
+            WHERE p.id = :id'
+        )->setParameter('id', $id);
+
+        return $query->getOneOrNullResult();
     }
-    */
 }

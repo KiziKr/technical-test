@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 export const DefaultLayout = ({
     children,
     ...other

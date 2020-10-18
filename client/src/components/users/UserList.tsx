@@ -2,25 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, makeStyles, Paper } from '@material-ui/core';
 import { User } from '../../types/user';
 import axios from '../../api';
+import UserModal from './UserModal';
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        height: 427,
+    },
     table: {
         minWidth: 650,
     },
     tableHead: {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     tableRow: {
         cursor: 'pointer',
         textDecoration: 'none',
         '&:hover': {
             backgroundColor: theme.palette.action.hover,
-        }
+        },
+        color: '#fff',
     },
 }));
 
 const UserList = () => {
     const [users, setUsers] = useState<User[]>();
+    const [userIndex, setUserIndex] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
     const classes = useStyles();
 
     useEffect(() => {
@@ -38,11 +45,15 @@ const UserList = () => {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
-        });
+        });    
+    }
+
+    const handleClose = () => {
+        setOpenModal(false);
     }
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer className={classes.root} component={Paper}>
             <Table className={classes.table}>
                 <TableHead className={classes.tableHead}>
                     <TableRow>
@@ -55,6 +66,10 @@ const UserList = () => {
                         <TableRow
                             className={classes.tableRow}
                             key={`user-list-${key}`}
+                            onClick={() => {
+                                setUserIndex(key);
+                                setOpenModal(!openModal);
+                            }}
                         >
                             <TableCell
                                 component='th'
@@ -65,6 +80,15 @@ const UserList = () => {
                             <TableCell align='right'>{toLocaleDateString(user.createdAt)}</TableCell>
                         </TableRow>
                     ))}
+                    {users &&
+                        <UserModal
+                            open={openModal}
+                            onClose={handleClose}
+                            userId={users[userIndex].id}
+                            userEmail={users[userIndex].email}
+                            userCreatedAt={users[userIndex].createdAt}
+                        />
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

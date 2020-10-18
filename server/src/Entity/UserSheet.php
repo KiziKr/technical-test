@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserSheetRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UserSheet
 {
     /**
+     * @Groups("user_sheet:find")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,6 +25,7 @@ class UserSheet
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user_sheet:find")
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -30,19 +33,22 @@ class UserSheet
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user_sheet:find")
      * @Assert\NotNull
-     * Assert\NotBlank
+     * @Assert\NotBlank
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("user_sheet:find")
      * @Assert\NotNull
      */
     private $description;
 
     /**
      * @ORM\Column(name="phone", type="string", length=255, unique=true)
+     * @Groups("user_sheet:find")
      * @Assert\NotNull
      * @Assert\Length(10)
      */

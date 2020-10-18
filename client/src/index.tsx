@@ -33,12 +33,25 @@ const theme = createMuiTheme({
   overrides: {
     MuiPaper: {
       root: {
-        backgroundColor: '#ffffff1f',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        borderRadius: 0,
+        color: '#fff',
       }
     },
     MuiButton: {
       root: {
         borderRadius: 0,
+      }
+    },
+    MuiTableCell: {
+      root: {
+        borderBottom: '1px solid #ffffff14'
+      },
+      head: {
+        color: '#fff',
+      },
+      body: {
+        color: '#ffffffd1',
       }
     }
   }
