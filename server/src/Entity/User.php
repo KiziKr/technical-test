@@ -21,13 +21,13 @@ class User implements UserInterface, EncoderAwareInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("user:read")
+     * @Groups("user:find")
      */
     private $id;
 
     /**
      * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * @Groups("user:read")
+     * @Groups("user:find")
      * @Assert\NotNull
      * @Assert\Email
      */
@@ -42,11 +42,13 @@ class User implements UserInterface, EncoderAwareInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("user:find")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("user:find")
      */
     private $updatedAt;
 
