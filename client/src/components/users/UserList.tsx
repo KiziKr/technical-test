@@ -33,13 +33,21 @@ const UserList = () => {
         })();
     }, []);
 
+    const toLocaleDateString = (date: string) => {
+        return new Date(date).toLocaleDateString('fr', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    }
+
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table}>
                 <TableHead className={classes.tableHead}>
                     <TableRow>
                         <TableCell>Email</TableCell>
-                        <TableCell>Date d'inscription</TableCell>
+                        <TableCell align='right'>Date d'inscription</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -49,12 +57,12 @@ const UserList = () => {
                             key={`user-list-${key}`}
                         >
                             <TableCell
-                                component="th"
-                                scope="row"
+                                component='th'
+                                scope='row'
                             >
                                 {user.email}
                             </TableCell>
-                            <TableCell align='right'>{user.createdAt}</TableCell>
+                            <TableCell align='right'>{toLocaleDateString(user.createdAt)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const DefaultLayout = ({
+export const AuthLayout = ({
     children,
     ...other
 }: React.HTMLAttributes<HTMLDivElement>) => {
@@ -22,7 +22,7 @@ export const DefaultLayout = ({
     return (
         <Backdrop
             className={classes.backdrop}
-            style={{ backgroundImage: 'url(backdrop-default.jpg)' }}
+            style={{ backgroundImage: 'url(/backdrop-auth.jpg)' }}
             open={true}
         >
             <div

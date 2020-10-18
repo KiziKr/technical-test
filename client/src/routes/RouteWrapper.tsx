@@ -7,9 +7,9 @@ const RouteWrapper = ({
     ...rest
 }: any) => {
     return (
-        <Route {...rest} render={(props) =>
-            <Layout {...props}>
-                <Component {...props} />
+        <Route {...rest} render={() =>
+            <Layout>
+                <Component />
             </Layout>
         } />
     );

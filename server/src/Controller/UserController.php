@@ -18,7 +18,7 @@ class UserController extends AbstractController
      */
     public function find(UserRepository $userRepository)
     {
-        return $this->json($userRepository->findAll(), 200, [], ['groups' => 'user:read']);
+        return $this->json($userRepository->findAll(), 200, [], ['groups' => 'user:find']);
     }
 
     /**
