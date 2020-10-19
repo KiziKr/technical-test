@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, makeStyles, Paper } from '@material-ui/core';
-import { User, UserSheet } from '../../types/user';
+import { User } from '../../types/user';
 import axios from '../../api';
 import UserModal from './UserModal';
 

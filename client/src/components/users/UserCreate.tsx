@@ -2,7 +2,7 @@ import React from 'react';
 import { FormikProps, Formik, Form } from 'formik';
 import { initialValues, userCreateSchema } from './__schema__/userCreateSchema'
 import FormControlBase from '../utils/form-controls/FormControlBase';
-import { Button, Paper, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import axios from '../../api';
 
 const useStyles = makeStyles({
